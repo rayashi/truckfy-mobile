@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Favoritos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div margin padding text-center *ngIf="gettingTrucks">
+    <ion-spinner></ion-spinner>
+    <p > Buscando favoritos ..</p>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let truck of trucks" (click)="goToTruckPage(truck)">
+      <ion-avatar item-left>
+        <img *ngIf="truck.avatar" width="200" [src]="truck.avatar">
+        <img *ngIf="!truck.avatar" width="200" src="assets/images/default-truck.png" />
+      </ion-avatar>
+      <h2><strong>{{truck.name}}</strong></h2>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

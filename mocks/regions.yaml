@@ -1,0 +1,32 @@
+- request:
+    url: ^/regions/$
+    method: GET
+    headers:
+      Authorization: Token foobar.*
+
+  response:
+    status: 200
+    latency: 1500
+    body: >
+      {
+        "count": 1,
+        "next": null,
+        "previous": null,
+        "results": [
+          {
+            "id": 1,
+            "name": "Sudeste",
+            "company": 1
+          },
+          {
+            "id": 2,
+            "name": "Leste",
+            "company": 1
+          },
+          {
+            "id": 3,
+            "name": "Sul",
+            "company": 1
+          }
+        ]
+      }

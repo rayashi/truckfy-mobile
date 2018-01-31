@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Meu Truck</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  
+  <div margin padding text-center *ngIf="saving">
+    <ion-spinner></ion-spinner>
+    <p > Salvando ..</p>
+  </div>
+
+  <ion-list text-center *ngIf="!saving">
+    <ion-item (click)="onUpdateLogo()" text-center *ngIf="!session.truck.avatar">
+      <ion-avatar class="truck-avatar">
+        <img src="assets/images/default-truck.png" />
+      </ion-avatar>
+    </ion-item>
+    <ion-item (click)="onUpdateLogo()" text-center *ngIf="session.truck.avatar" >
+      <ion-avatar class="truck-avatar">
+        <img [src]="session.truck.avatar">
+      </ion-avatar>
+    </ion-item>
+  </ion-list>
+
+  <form #truckForm="ngForm" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-label floating >Nome do Food Truck</ion-label>
+        <ion-input [(ngModel)]="session.truck.name" name="name" type="text" spellcheck="false" autocapitalize="on" required></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label floating>Nome do Responsável</ion-label>
+        <ion-input [(ngModel)]="session.truck.owner_name" name="owner_name" type="text" autocapitalize="on" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [(ngModel)]="session.truck.email" name="email" type="email" autocapitalize="off" required #email="ngModel" email></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label floating>Telefone</ion-label>
+        <ion-input [(ngModel)]="session.truck.phone" [textMask]="{mask: utils.PHONE_MASK}" name="phone" type="tel" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button margin-bottom ion-button color="secondary" outline block (click)="onSave(truckForm)" [disabled]="!truckForm.valid||saving">salvar</button>
+      <button margin-bottom ion-button outline block (click)="onUpdateLogo()" [disabled]="saving">Alterar Logomarca</button>
+      <button margin-bottom ion-button color="danger" outline block (click)="onLogout()" [disabled]="saving">Sair</button>
+    </div>
+  </form>
+
+</ion-content>

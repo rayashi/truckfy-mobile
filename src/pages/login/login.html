@@ -1,0 +1,48 @@
+<ion-content class="page-login">
+
+  <ion-row>
+    <ion-col offset-75>
+      <button class="cancel-button" ion-button icon-only clear (click)="onCancel()" color="dark">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <img src="assets/images/logo.png" />
+    </ion-col>
+  </ion-row>
+  
+  <form #loginForm="ngForm" novalidate padding>
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [(ngModel)]="login.username" name="username" type="email" spellcheck="false" autocapitalize="off" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input [(ngModel)]="login.password" name="password" type="password" required></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button outline type="submit" (click)="onLogin(loginForm)" color="dark">Entrar</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button clear [navPush]="registerPage" color="dark">Cadastrar-se</button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+  <!--<ion-row margin-top>
+    <button ion-button icon-left block>
+      <ion-icon name="logo-facebook"></ion-icon>
+      Entrar com Facebook
+    </button>
+  </ion-row>-->
+
+
+</ion-content>

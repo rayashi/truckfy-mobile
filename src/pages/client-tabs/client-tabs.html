@@ -1,0 +1,7 @@
+<ion-tabs tabsLayout='title-hide' color='danger' tabsPlacement='bottom'>
+  <ion-tab [root]="tab1Root" tabIcon="ios-search"></ion-tab>
+  <!--<ion-tab [root]="tab2Root" tabIcon="md-pricetags"></ion-tab>-->
+  <ion-tab (ionSelect)="onFollowing()" tabIcon="md-heart-outline"></ion-tab>
+  <ion-tab (ionSelect)="onProfile()" tabIcon="contact"></ion-tab>
+</ion-tabs>
+ 

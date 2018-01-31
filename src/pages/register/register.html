@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cadastrar-se</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="register-login">
+
+  <div padding >
+    <form #registerForm="ngForm" novalidate>
+      <ion-list>
+        <ion-item *ngIf="userType=='truck'">
+          <ion-label floating>Nome do Responsável</ion-label>
+          <ion-input [(ngModel)]="register.owner_name" name="owner_name" type="text" autocapitalize="on" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating *ngIf="userType=='client'" >Nome</ion-label>
+          <ion-label floating *ngIf="userType=='truck'">Nome do Food Truck</ion-label>
+          <ion-input [(ngModel)]="register.name" name="name" type="text" spellcheck="false" autocapitalize="on" required></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input [(ngModel)]="register.email" name="email" type="email" autocapitalize="off" required #email="ngModel" email></ion-input>
+        </ion-item>
+        
+        <ion-item *ngIf="userType=='truck'">
+          <ion-label floating>Telefone</ion-label>
+          <ion-input [(ngModel)]="register.phone" [textMask]="{mask: mask}" name="phone" type="tel" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Senha</ion-label>
+          <ion-input [(ngModel)]="register.password" name="password" type="password" minlength="4" required></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button outline block type="submit" (click)="onRegister(registerForm)" [disabled]="!registerForm.valid">
+            Cadastrar
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <!--<ion-row margin-top>
+      <ion-col>
+        <button ion-button icon-left block>
+          <ion-icon name="logo-facebook"></ion-icon>
+          Entrar com Facebook
+        </button>
+      </ion-col>
+    </ion-row>-->
+    
+    <ion-row margin-top>
+      <ion-col>
+        <button ion-button icon-left block clear [navPush]="LoginPage">        
+          Já tenho cadastro
+        </button>
+        <button ion-button icon-left block clear (click)="onToogleUserType()">        
+          <span *ngIf="userType=='client'"> Cadastrar meu Food Truck</span>
+          <span *ngIf="userType=='truck'"> Cadastrar como cliente</span>
+        </button>
+      </ion-col>
+    </ion-row>
+ 
+  </div>
+
+</ion-content>

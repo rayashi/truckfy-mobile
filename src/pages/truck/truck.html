@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{truck.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="ontToggleFavorite()">
+        <ion-icon *ngIf="!truck.is_following" name="ios-heart-outline"></ion-icon>
+        <ion-icon *ngIf="truck.is_following" name="ios-heart" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page-truck">
+
+  <ion-list no-padding>
+    <ion-item>
+      <ion-avatar item-left class="truck-avatar">
+        <img *ngIf="truck.avatar" [src]="truck.avatar">
+        <img *ngIf="!truck.avatar" src="assets/images/default-truck.png" />
+      </ion-avatar>
+      <h2>
+        <strong>{{truck.name}}</strong> 
+        <small *ngIf="truck.review_amount" style="color: gold; float: right;"><ion-icon name="ios-star"></ion-icon>{{truck.review_rate}}</small>
+      </h2>
+      <p *ngIf="truck.distance">{{truck.distance/1000|number:'.1-1'}}km</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list no-padding no-margin *ngIf="truck.latitude&&truck.longitude">
+    <ion-item>
+      <p><small>{{truck.formatted_address}}</small></p>
+      <button ion-button icon-right outline block small color="secondary" (click)="onDirections()">
+        Como chegar 
+        <ion-icon end name="ios-navigate-outline"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  <ion-segment [(ngModel)]="segment" color="primary">
+    <ion-segment-button value="dishes" (ionSelect)="selectedDishes()">
+      Cardápio
+    </ion-segment-button>
+    <ion-segment-button value="reviews" (ionSelect)="selectedReviews()">
+      Avaliações
+      <span>({{truck.review_amount}})</span>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+    <ion-list *ngSwitchCase="'dishes'">
+      <ion-item *ngIf="gettingDishes">
+        <div margin padding text-center>
+          <ion-spinner></ion-spinner>
+          <p > Buscando Cardápio ..</p>
+        </div>
+      </ion-item>
+      <ion-item *ngFor="let dish of dishes" (click)="onDishClick(dish)">
+        <h2>{{dish.name}}</h2>
+        <ion-badge *ngIf="dish.price&&dish.price>0" item-right>{{dish.price|currency:'BRL':true:'.2-2'}}</ion-badge>
+      </ion-item>
+    </ion-list>
+
+    <div *ngSwitchCase="'reviews'">
+      <ion-list>
+        <ion-item>
+          <button ion-button block small (click)="onReview()">Avaliar</button>
+        </ion-item>
+        <ion-item *ngFor="let review of reviews" >
+          <h3>
+            {{review.client.name}} 
+            <small *ngIf="truck.review_amount" style="color: gold; float: right;">
+              <ion-icon name="ios-star"></ion-icon>{{review.rate}}
+            </small>
+          </h3>
+          <p>{{review.text}}&nbsp;-&nbsp;<small>{{review.created_at|date:'dd/MM/y'}}</small></p>
+        </ion-item>
+        <ion-item *ngIf="gettingReviews">
+          <div margin padding text-center>
+            <ion-spinner></ion-spinner>
+            <p > Buscando Avaliações ..</p>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="!gettingReviews && !reviews">
+          <p text-center> Seja o primeiro a nos avaliar! ..</p>
+        </ion-item>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+
+</ion-content>

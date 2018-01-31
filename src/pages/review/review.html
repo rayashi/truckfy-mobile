@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Avaliar {{truck.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div padding >
+    <form #reviewForm="ngForm" novalidate>
+    <ion-grid style="color: gold; font-size: 3em;" text-center>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="ios-star" (click)="onChangeRate(1)"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="ios-star-outline" (click)="onChangeRate(2)" *ngIf="review.rate<2"></ion-icon>
+          <ion-icon name="ios-star" (click)="onChangeRate(2)" *ngIf="review.rate>=2"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="ios-star-outline" (click)="onChangeRate(3)" *ngIf="review.rate<3"></ion-icon>
+          <ion-icon name="ios-star" (click)="onChangeRate(3)" *ngIf="review.rate>=3"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="ios-star-outline" (click)="onChangeRate(4)" *ngIf="review.rate<4"></ion-icon>
+          <ion-icon name="ios-star" (click)="onChangeRate(4)" *ngIf="review.rate>=4"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="ios-star-outline" (click)="onChangeRate(5)" *ngIf="review.rate<5"></ion-icon>
+          <ion-icon name="ios-star" (click)="onChangeRate(5)" *ngIf="review.rate>=5"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="O que você achou de nós?" [(ngModel)]="review.text" name="tex" type="text"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button block type="submit" (click)="onMakeReview(reviewForm)">
+            Avaliar
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+
+  
+</ion-content>

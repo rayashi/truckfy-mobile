@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title>Food Trucks próximos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page-search">
+
+  <div margin padding text-center *ngIf="gettingTrucks&&locationAgreed">
+    <ion-spinner></ion-spinner>
+    <p > Buscando Food Trucks ..</p>
+  </div>
+  
+  <ion-row *ngIf="!locationAgreed" padding text-center>
+    <ion-col>
+      <img src="assets/images/map.png" />
+      <h3 padding> Ative sua localização para encontrar food trucks perto de você</h3>
+      <button padding ion-button block color="secondary" (click)="doRefresh()">
+        Ativar localização
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let truck of trucks" (click)="goToTruckPage(truck)">
+      <ion-avatar item-left>
+        <img *ngIf="truck.avatar" width="200" [src]="truck.avatar">
+        <img *ngIf="!truck.avatar" width="200" src="assets/images/default-truck.png" />
+      </ion-avatar>
+      <h2>
+        <strong>{{truck.name}}</strong>
+        <small *ngIf="truck.review_amount" style="color: gold; float: right;">
+          <ion-icon name="ios-star"></ion-icon>{{truck.review_rate|number:'.1-1'}}
+        </small>
+        <small *ngIf="!truck.review_amount" style="color: gold; float: right;">
+          NOVO
+        </small>
+      </h2>
+      <p *ngIf="truck.distance!=null">{{truck.distance/1000|number:'.1-1'}}km
+        <small *ngIf="truck.distance!=null" style="float: right; color: lawngreen;">ABERTO</small>
+      </p>
+      
+      <p *ngIf="truck.distance!=null"><small>{{truck.formatted_address}}</small></p>
+      <p><small *ngIf="truck.distance==null" style="float: right;">FECHADO</small></p>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <span *ngIf="!dish.id">Cadastrar Prato</span>
+      <span *ngIf="dish.id">Prato</span>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #dishForm="ngForm" novalidate>
+    <ion-list>
+      <ion-item >
+        <ion-label floating>Nome do Prato</ion-label>
+        <ion-input [(ngModel)]="dish.name" name="name" type="text" autocapitalize="on" required></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label floating>Detalhes</ion-label>
+        <ion-input [(ngModel)]="dish.text" name="text" type="text" autocapitalize="on"></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label floating>Preço</ion-label>
+        <ion-input [(ngModel)]="dish.maskedPrice" name="price" type="tel" autocapitalize="on" [textMask]="{mask: mask}"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-row>
+      <ion-col>
+        <button ion-button block type="submit" (click)="onSave(dishForm)">
+          Salvar
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="dish.id">
+      <ion-col>
+        <button icon-left ion-button outline block color="danger" type="submit" (click)="onDelete()">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Minha Localização</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="page-truck-checkin">
+  
+  <ion-row>
+    <ion-col>
+      <img src="assets/images/map.png" />
+    </ion-col>
+  </ion-row>
+
+  <ion-row margin-top *ngIf="activedCheckin">
+    <ion-col>
+      <h5>Sua localização - <small><strong>{{activedCheckin.updated_at|date:'HH:mm'}}</strong></small></h5>
+      <p>{{ activedCheckin.formatted_address}}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!activedCheckin">
+    <ion-col>
+      <h5>Faça o check-in para compartilhar sua localização. Assim os clientes irão te encontrar facilmente!</h5>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <div>
+        <button padding ion-button block color="secondary" (click)="onCheckin()" [disabled]="sending">
+          <span *ngIf="!activedCheckin"> Fazer Check-in </span>
+          <span *ngIf="activedCheckin"> Atualizar Localização </span>
+        </button>
+      </div>
+      <div margin-top *ngIf="activedCheckin">
+        <button ion-button block outline color="danger" (click)="onCheckout()" [disabled]="sending">
+          <span> Check-out </span>
+        </button>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

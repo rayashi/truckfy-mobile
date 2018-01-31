@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cardápio do Food Truck</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div margin padding text-center *ngIf="gettingDishes">
+    <ion-spinner></ion-spinner>
+    <p > Buscando cardápio..</p>
+  </div>
+
+  <ion-row *ngIf="!gettingDishes&&dishes.length<=0">
+    <ion-col>
+      <h5 text-center>Nenhum prato ainda foi cadastrado</h5>
+    </ion-col>
+  </ion-row>
+
+  <ion-list *ngIf="!gettingDishes">
+    <ion-item *ngFor="let dish of dishes" (click)="onDishClick(dish)">
+      <h4>{{dish.name}}</h4>
+      <ion-badge item-right>{{dish.price|currency:'BRL':true:'.2-2'}}</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col>
+      <button icon-left ion-button block type="submit" [navPush]="TruckDishDetailPage">
+        <ion-icon name="add"></ion-icon>
+        Cadastrar prato
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

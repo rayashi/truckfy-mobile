@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Meus Dados</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1 text-center style="color: gray; font-size: 2em;"><ion-icon  name="contact"></ion-icon></h1>
+  <div padding *ngIf="session.client">
+    <h3 text-center>{{session.client.name}}</h3>
+    <p text-center>{{session.client.email}}</p>
+  </div>
+
+  <div padding>
+    <button margin-bottom ion-button color="danger" outline block (click)="onLogout()">Sair</button>
+  </div>
+</ion-content>
